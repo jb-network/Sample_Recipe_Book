@@ -68,7 +68,7 @@ def call_functions(user_menu_choice):
     elif user_menu_choice == 5:
         print("five")
         time.sleep(2)
-    elif user_menu_choice == 6:
+    else user_menu_choice == 6:
         print("You selected 'Exit the program', Ending the program")
 
 # MAIN
