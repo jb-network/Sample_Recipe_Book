@@ -1,6 +1,6 @@
 import time
 from pathlib import Path
-from os import system
+from os import system, path
 
 def initializing_info():
     # This function sets in the intial variables for the program and passes them to main
@@ -50,12 +50,37 @@ def display_menu(user_name, working_directory):
             print(pretty_menu)
             system("cls")
 
-def call_functions(user_menu_choice):
+def get_categories(working_directory):
+    valid_choice = False
+    while not valid_choice:
+        KV_tracker = {}
+        menu_number = 1
+        for items in working_directory.iterdir():
+            KV_tracker[menu_number] = items
+            print("{}: {}".format(menu_number, path.basename(items)))
+            #print(f"{menu_number}: {path.basename(items)}")
+            menu_number += 1
+        user_directory_choice = int(input("Please select a category to read: "))
+        if user_directory_choice in range(1,menu_number+1):
+            set_user_choice = KV_tracker.get(user_directory_choice)
+            valid_choice = True
+            return(set_user_choice)
+        else:
+            print(f"The number: {user_directory_choice} is not a valid choice")
+            input("Press enter to make another choice")
+            system("cls")
+
+def read_recipe(working_directory):
+    pretty_menu = "************************************************"
+    list_categories = get_categories(working_directory)
+    print(list_categories)
+    time.sleep(3)
+
+def call_functions(user_menu_choice, working_directory):
     # this is a function to call functions
     # if_else ladder  (for non 3.10 python systems)
     if user_menu_choice == 1:
-        print("one")
-        time.sleep(2)
+        read_recipe(working_directory)
     elif user_menu_choice == 2:
         print("two")
         time.sleep(2)
@@ -78,7 +103,6 @@ user_menu_choice = 0
 
 while user_menu_choice != 6:
     user_menu_choice = display_menu(user_name, working_directory)
-    function_caller = call_functions(user_menu_choice)
-
+    function_caller = call_functions(user_menu_choice, working_directory)
 
 ### this is a work in progress
