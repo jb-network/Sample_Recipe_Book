@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 from os import system
 
@@ -31,15 +32,16 @@ def display_menu(user_name, working_directory):
         print(pretty_menu)
         print("MENU")
         print(pretty_menu)
-        print(1)
-        print(2)
-        print(3)
-        print(4)
-        print(5)
-        print(6)
+        print("1 - Read recipes")
+        print("2 - Create a new recipe")
+        print("3 - Create a new recipe category")
+        print("4 - Delete recipes")
+        print("5 - Delete a recipe category")
+        print("6 - Exit the program")
         print(pretty_menu)
         user_menu_choice = int(input("Please pick a number from 1 to 6: "))
-        if user_menu_choice in range(1, 6):
+        if user_menu_choice in range(1, 7):
+            system("cls")
             return user_menu_choice
         else:
             system("cls")
@@ -48,9 +50,35 @@ def display_menu(user_name, working_directory):
             print(pretty_menu)
             system("cls")
 
+def call_functions(user_menu_choice):
+    # this is a function to call functions
+    # if_else ladder  (for non 3.10 python systems)
+    if user_menu_choice == 1:
+        print("one")
+        time.sleep(2)
+    elif user_menu_choice == 2:
+        print("two")
+        time.sleep(2)
+    elif user_menu_choice == 3:
+        print("three")
+        time.sleep(2)
+    elif user_menu_choice == 4:
+        print("four")
+        time.sleep(2)
+    elif user_menu_choice == 5:
+        print("five")
+        time.sleep(2)
+    elif user_menu_choice == 6:
+        print("You selected 'Exit the program', Ending the program")
+
 # MAIN
 # Set user's name and working directory.
 user_name, working_directory = initializing_info()
-user_menu_choice = display_menu(user_name, working_directory)
+user_menu_choice = 0
+
+while user_menu_choice != 6:
+    user_menu_choice = display_menu(user_name, working_directory)
+    function_caller = call_functions(user_menu_choice)
+
 
 ### this is a work in progress
