@@ -53,17 +53,16 @@ def display_menu(user_name, working_directory):
 def get_categories(working_directory):
     valid_choice = False
     while not valid_choice:
-        KV_tracker = {}
+        kv_tracker = {}
         menu_number = 1
         for items in working_directory.iterdir():
-            KV_tracker[menu_number] = items
+            kv_tracker[menu_number] = items
             print("{}: {}".format(menu_number, path.basename(items)))
-            #print(f"{menu_number}: {path.basename(items)}")
             menu_number += 1
-        user_directory_choice = int(input("Please select a category to read: "))
+        user_directory_choice = int(input("Please select a category of recipes to read: "))
         if user_directory_choice in range(1,menu_number+1):
-            set_user_choice = KV_tracker.get(user_directory_choice)
-            valid_choice = True
+            set_user_choice = kv_tracker.get(user_directory_choice)
+            system("cls")
             return(set_user_choice)
         else:
             print(f"The number: {user_directory_choice} is not a valid choice")
@@ -73,7 +72,7 @@ def get_categories(working_directory):
 def read_recipe(working_directory):
     pretty_menu = "************************************************"
     list_categories = get_categories(working_directory)
-    print(list_categories)
+    print(Path(list_categories))
     time.sleep(3)
 
 def call_functions(user_menu_choice, working_directory):
