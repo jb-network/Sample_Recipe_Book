@@ -126,9 +126,20 @@ def create_new_recipe(working_directory):
             valid_recipe = True
             new_recipe_data = input("Please input the recipe and press 'Enter' when finished: \n")
             with open(full_path, 'w') as new_recipe:
-                new_recipe.write(new_recipe_data)                
+                new_recipe.write(new_recipe_data)
     input("Update complete, please press 'enter' to go back to the main menu")
     system("cls")
+
+def remove_recipe(working_directory):
+    pretty_menu = "************************************************"
+    user_goal = "delete"
+    selected_category = get_categories(working_directory, user_goal)
+    #Need selected catergory first
+    selected_recipe = get_recipe(selected_category, user_goal)
+    print(pretty_menu)
+    print(f"You selected to delete {Path(path.basename(selected_recipe)).stem} recipe from the {path.basename(selected_category)} category")
+    Path(selected_recipe).unlink()
+    input("Recipe removed, Press Enter")
 
 def call_functions(user_menu_choice, working_directory):
     # this is a function to call functions
@@ -141,8 +152,7 @@ def call_functions(user_menu_choice, working_directory):
         print("three")
         time.sleep(2)
     elif user_menu_choice == 4:
-        print("four")
-        time.sleep(2)
+       remove_recipe(working_directory)
     elif user_menu_choice == 5:
         print("five")
         time.sleep(2)
