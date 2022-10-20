@@ -50,31 +50,62 @@ def display_menu(user_name, working_directory):
             print(pretty_menu)
             system("cls")
 
-def get_categories(working_directory):
+def get_categories(working_directory, user_goal):
     valid_choice = False
+    pretty_menu = "************************************************"
     while not valid_choice:
+        print(pretty_menu)
         kv_tracker = {}
         menu_number = 1
         for items in working_directory.iterdir():
             kv_tracker[menu_number] = items
             print("{}: {}".format(menu_number, path.basename(items)))
             menu_number += 1
-        user_directory_choice = int(input("Please select a category of recipes to read: "))
+        user_directory_choice = int(input(f"Please select a category of recipes to {user_goal}: "))
         if user_directory_choice in range(1,menu_number+1):
             set_user_choice = kv_tracker.get(user_directory_choice)
             system("cls")
             return(set_user_choice)
         else:
             print(f"The number: {user_directory_choice} is not a valid choice")
+            print(pretty_menu)
+            input("Press enter to make another choice")
+            system("cls")
+
+def get_recipe(selected_category, user_goal):
+    valid_choice = False
+    pretty_menu = "************************************************"
+    while not valid_choice:
+        print(pretty_menu)
+        kv_tracker = {}
+        menu_number = 1
+        for items in Path(selected_category).glob("**/*.txt"):
+            kv_tracker[menu_number] = items
+            print("{}: {}".format(menu_number, path.basename(items.stem)))
+            menu_number += 1
+        user_recipe_choice = int(input(f"Please select a recipe to {user_goal}: "))
+        if user_recipe_choice in range(1,menu_number+1):
+            set_user_recipe = kv_tracker.get(user_recipe_choice)
+            system("cls")
+            return(set_user_recipe)
+        else:
+            print(f"The number: {user_recipe_choice} is not a valid choice")
+            print(pretty_menu)
             input("Press enter to make another choice")
             system("cls")
 
 def read_recipe(working_directory):
     pretty_menu = "************************************************"
-    list_categories = get_categories(working_directory)
-    print(Path(list_categories))
-    time.sleep(3)
-
+    user_goal = "read"
+    selected_category = get_categories(working_directory, user_goal)
+    #Need selected catergory first
+    selected_recipe = get_recipe(selected_category, user_goal)
+    print(pretty_menu)
+    print(f"The {selected_recipe.stem} recipe is: ")
+    print(selected_recipe.read_text())
+    print(pretty_menu)
+    input("Please press enter when you have finished reviewing the recipe")
+    system("cls")
 def call_functions(user_menu_choice, working_directory):
     # this is a function to call functions
     # if_else ladder  (for non 3.10 python systems)
@@ -104,4 +135,4 @@ while user_menu_choice != 6:
     user_menu_choice = display_menu(user_name, working_directory)
     function_caller = call_functions(user_menu_choice, working_directory)
 
-### this is a work in progress
+### Task 1 and 6 are done
