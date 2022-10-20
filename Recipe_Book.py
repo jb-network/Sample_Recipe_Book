@@ -62,7 +62,7 @@ def get_categories(working_directory, user_goal):
             print("{}: {}".format(menu_number, path.basename(items)))
             menu_number += 1
         user_directory_choice = int(input(f"Please select a category of recipes to {user_goal}: "))
-        if user_directory_choice in range(1,menu_number+1):
+        if user_directory_choice in range(1,menu_number):
             set_user_choice = kv_tracker.get(user_directory_choice)
             system("cls")
             return(set_user_choice)
@@ -84,7 +84,7 @@ def get_recipe(selected_category, user_goal):
             print("{}: {}".format(menu_number, path.basename(items.stem)))
             menu_number += 1
         user_recipe_choice = int(input(f"Please select a recipe to {user_goal}: "))
-        if user_recipe_choice in range(1,menu_number+1):
+        if user_recipe_choice in range(1,menu_number):
             set_user_recipe = kv_tracker.get(user_recipe_choice)
             system("cls")
             return(set_user_recipe)
@@ -135,4 +135,5 @@ while user_menu_choice != 6:
     user_menu_choice = display_menu(user_name, working_directory)
     function_caller = call_functions(user_menu_choice, working_directory)
 
-### Task 1 and 6 are done
+### this is a work in progress
+
