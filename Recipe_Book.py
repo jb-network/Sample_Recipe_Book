@@ -2,6 +2,7 @@ import os.path
 import time
 from pathlib import Path
 from os import system, path
+import shutil
 
 def initializing_info():
     # This function sets in the intial variables for the program and passes them to main
@@ -141,6 +142,14 @@ def remove_recipe(working_directory):
     Path(selected_recipe).unlink()
     input("Recipe removed, Press Enter")
 
+def remove_directory(working_directory):
+    pretty_menu = "************************************************"
+    user_goal = "delete"
+    selected_category = get_categories(working_directory, user_goal)
+    shutil.rmtree(selected_category)
+    print(f"You selected to delete {path.basename(selected_category)} category")
+    input("Category removed, Press Enter")
+
 def call_functions(user_menu_choice, working_directory):
     # this is a function to call functions
     # if_else ladder  (for non 3.10 python systems)
@@ -154,7 +163,7 @@ def call_functions(user_menu_choice, working_directory):
     elif user_menu_choice == 4:
        remove_recipe(working_directory)
     elif user_menu_choice == 5:
-        print("five")
+        remove_directory(working_directory)
         time.sleep(2)
     else:
         print("You selected 'Exit the program', Ending the program")
