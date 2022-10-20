@@ -1,3 +1,4 @@
+import os.path
 import time
 from pathlib import Path
 from os import system, path
@@ -106,14 +107,36 @@ def read_recipe(working_directory):
     print(pretty_menu)
     input("Please press enter when you have finished reviewing the recipe")
     system("cls")
+
+def create_new_recipe(working_directory):
+    pretty_menu = "************************************************"
+    user_goal = "create"
+    selected_category = get_categories(working_directory, user_goal)
+    valid_recipe = False
+    while not valid_recipe:
+        print(pretty_menu)
+        print(f"You are creating a new recipe for the {os.path.basename(selected_category)} category")
+        new_recipe_name = (input("Please enter a new recipe name: ") + ".txt").capitalize()
+        full_path = selected_category/new_recipe_name
+        if full_path.exists():
+            print("The recipe name already exists in this category")
+            input("Press 'Enter' to use a different name")
+            system("cls")
+        else:
+            valid_recipe = True
+            new_recipe_data = input("Please input the recipe and press 'Enter' when finished: \n")
+            with open(full_path, 'w') as new_recipe:
+                new_recipe.write(new_recipe_data)                
+    input("Update complete, please press 'enter' to go back to the main menu")
+    system("cls")
+
 def call_functions(user_menu_choice, working_directory):
     # this is a function to call functions
     # if_else ladder  (for non 3.10 python systems)
     if user_menu_choice == 1:
         read_recipe(working_directory)
     elif user_menu_choice == 2:
-        print("two")
-        time.sleep(2)
+       create_new_recipe(working_directory)
     elif user_menu_choice == 3:
         print("three")
         time.sleep(2)
@@ -136,4 +159,3 @@ while user_menu_choice != 6:
     function_caller = call_functions(user_menu_choice, working_directory)
 
 ### this is a work in progress
-
