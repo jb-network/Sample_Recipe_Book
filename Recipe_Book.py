@@ -1,5 +1,4 @@
 import os.path
-import time
 from pathlib import Path
 from os import system, path
 import shutil
@@ -131,6 +130,27 @@ def create_new_recipe(working_directory):
     input("Update complete, please press 'enter' to go back to the main menu")
     system("cls")
 
+def create_new_category(working_directory):
+    pretty_menu = "************************************************"
+    user_goal = "create"
+    print(working_directory)
+    #####################
+    valid_category = False
+    while not valid_category:
+        print(pretty_menu)
+        print(f"You are creating a new recipe category")
+        new_category_name = (input("Please enter a new category name: ").capitalize())
+        full_path = working_directory/new_category_name
+        if full_path.exists():
+            print("This category already exists")
+            input("Press 'Enter' to use a different category name")
+            system("cls")
+        else:
+            valid_category = True
+            os.makedirs(full_path)
+    input("Update complete, please press 'enter' to go back to the main menu")
+    system("cls")
+    
 def remove_recipe(working_directory):
     pretty_menu = "************************************************"
     user_goal = "delete"
@@ -158,13 +178,11 @@ def call_functions(user_menu_choice, working_directory):
     elif user_menu_choice == 2:
        create_new_recipe(working_directory)
     elif user_menu_choice == 3:
-        print("three")
-        time.sleep(2)
+        create_new_category(working_directory)
     elif user_menu_choice == 4:
        remove_recipe(working_directory)
     elif user_menu_choice == 5:
         remove_directory(working_directory)
-        time.sleep(2)
     else:
         print("You selected 'Exit the program', Ending the program")
 
@@ -176,5 +194,3 @@ user_menu_choice = 0
 while user_menu_choice != 6:
     user_menu_choice = display_menu(user_name, working_directory)
     function_caller = call_functions(user_menu_choice, working_directory)
-
-### this is a work in progress
